@@ -1,0 +1,26 @@
+# frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vue-frontend-deployment
+  namespace: frontend
+  labels:
+    app: vue-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vue-frontend
+  template:
+    metadata:
+      labels:
+        app: vue-frontend
+    spec:
+      containers:
+        - name: vue-frontend
+          image: 834033184010.dkr.ecr.ap-southeast-2.amazonaws.com/alija-frontend:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: ecr-registry-secret
